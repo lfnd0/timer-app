@@ -1,5 +1,5 @@
 import { Play } from '@phosphor-icons/react'
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import {
   CountDownContainer,
   FormContainer,
@@ -11,11 +11,18 @@ import {
 } from './styles'
 
 export function Home() {
-  const [task, setTask] = useState('')
+  const { register, handleSubmit, watch } = useForm()
+
+  const task = watch('task')
+  const isSubmitDisabled = !task
+
+  function handleCreateNewCycle(data: unknown) {
+    console.log(data)
+  }
 
   return (
     <HomeContainer>
-      <form action="">
+      <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
         <FormContainer>
           <datalist id="task-suggestions">
             <option value="Ignite ReactJS" />
@@ -29,8 +36,7 @@ export function Home() {
             id="task"
             list="task-suggestions"
             placeholder="Dê um nome para o seu projeto"
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
+            {...register('task')}
           />
 
           <label htmlFor="minutesAmount">durante</label>
@@ -40,7 +46,9 @@ export function Home() {
             step={5}
             min={5}
             max={60}
+            defaultValue={5}
             placeholder="00"
+            {...register('minutesAmount', { valueAsNumber: true })}
           />
 
           <span>minutos.</span>
@@ -54,7 +62,7 @@ export function Home() {
           <span>0</span>
         </CountDownContainer>
 
-        <StartCountDownButton disabled={!task} type="submit">
+        <StartCountDownButton disabled={isSubmitDisabled} type="submit">
           <Play />
           Começar
         </StartCountDownButton>
