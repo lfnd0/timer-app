@@ -28,7 +28,7 @@ export function Home() {
             placeholder="Dê um nome para o seu projeto"
           />
 
-          <label htmlFor="">durante</label>
+          <label htmlFor="minutesAmount">durante</label>
           <MinutesAmountInput
             id="minutesAmount"
             type="number"
