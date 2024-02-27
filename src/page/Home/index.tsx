@@ -14,13 +14,27 @@ export function Home() {
     <HomeContainer>
       <form action="">
         <FormContainer>
+          <datalist id="task-suggestions">
+            <option value="Ignite ReactJS" />
+            <option value="Full Cycle 3.0" />
+            <option value="Rabiscando Padrões de Projeto" />
+            <option value="Arquitetura Limpa na Prática" />
+          </datalist>
+
           <label htmlFor="task">Vou trabalhar em</label>
-          <TaskInput id="task" placeholder="Dê um nome para o seu projeto" />
+          <TaskInput
+            id="task"
+            list="task-suggestions"
+            placeholder="Dê um nome para o seu projeto"
+          />
 
           <label htmlFor="">durante</label>
           <MinutesAmountInput
             id="minutesAmount"
             type="number"
+            step={5}
+            min={5}
+            max={60}
             placeholder="00"
           />
 
