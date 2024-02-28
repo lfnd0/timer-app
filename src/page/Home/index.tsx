@@ -23,11 +23,11 @@ const newCycleFormValidationSchema = z.object({
 type NewCycleFormData = z.infer<typeof newCycleFormValidationSchema>
 
 export function Home() {
-  const { register, handleSubmit, watch } = useForm<NewCycleFormData>({
+  const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
     resolver: zodResolver(newCycleFormValidationSchema),
     defaultValues: {
       task: '',
-      minutesAmount: 0,
+      minutesAmount: 5,
     },
   })
 
@@ -36,6 +36,7 @@ export function Home() {
 
   function handleCreateNewCycle(data: NewCycleFormData) {
     console.log(data)
+    reset()
   }
 
   return (
@@ -64,8 +65,7 @@ export function Home() {
             step={5}
             min={5}
             max={60}
-            defaultValue={5}
-            placeholder="00"
+            placeholder="0"
             {...register('minutesAmount', { valueAsNumber: true })}
           />
 
