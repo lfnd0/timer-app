@@ -4,15 +4,12 @@ import { differenceInSeconds } from 'date-fns'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { Countdown } from './components/Countdown'
+import { NewCycleForm } from './components/NewCycleForm'
 import {
-  CountDownContainer,
-  FormContainer,
   HomeContainer,
-  MinutesAmountInput,
-  Separator,
-  StartCountDownButton,
-  StopCountDownButton,
-  TaskInput,
+  StartCountdownButton,
+  StopCountdownButton,
 } from './styles'
 
 const newCycleFormValidationSchema = z.object({
@@ -136,56 +133,19 @@ export function Home() {
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)} action="">
-        <FormContainer>
-          <datalist id="task-suggestions">
-            <option value="Ignite ReactJS" />
-            <option value="Full Cycle 3.0" />
-            <option value="Rabiscando Padrões de Projeto" />
-            <option value="Arquitetura Limpa na Prática" />
-          </datalist>
+        <NewCycleForm />
 
-          <label htmlFor="task">Vou trabalhar em</label>
-          <TaskInput
-            id="task"
-            list="task-suggestions"
-            placeholder="Dê um nome para o seu projeto"
-            disabled={!!activeCycle}
-            {...register('task')}
-          />
-
-          <label htmlFor="minutesAmount">durante</label>
-          <MinutesAmountInput
-            id="minutesAmount"
-            type="number"
-            step={5}
-            min={5}
-            max={60}
-            placeholder="0"
-            disabled={!!activeCycle}
-            {...register('minutesAmount', { valueAsNumber: true })}
-          />
-
-          <span>minutos.</span>
-        </FormContainer>
-
-        <CountDownContainer>
-          <span>{minutes[0]}</span>
-          <span>{minutes[1]}</span>
-          <Separator>:</Separator>
-          <span>{seconds[0]}</span>
-          <span>{seconds[1]}</span>
-        </CountDownContainer>
-
+        <Countdown />
         {activeCycle ? (
-          <StopCountDownButton onClick={handleInterruptCycle} type="button">
+          <StopCountdownButton onClick={handleInterruptCycle} type="button">
             <HandPalm />
             Interromper
-          </StopCountDownButton>
+          </StopCountdownButton>
         ) : (
-          <StartCountDownButton disabled={isSubmitDisabled} type="submit">
+          <StartCountdownButton disabled={isSubmitDisabled} type="submit">
             <Play />
             Começar
-          </StartCountDownButton>
+          </StartCountdownButton>
         )}
       </form>
     </HomeContainer>
