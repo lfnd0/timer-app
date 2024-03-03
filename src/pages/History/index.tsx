@@ -9,8 +9,6 @@ export function History() {
     <HistoryContainer>
       <h1>Meu Histórico</h1>
 
-      <pre>{JSON.stringify(cycles, null, 2)}</pre>
-
       <HistoryList>
         <table>
           <thead>
@@ -22,38 +20,26 @@ export function History() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Ler o livro Ultra-Aprendizado</td>
-              <td>30 minutos</td>
-              <td>Há 1 dia atrás</td>
-              <td>
-                <Status statusColor="green">Concluído</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Assistir as aulas do Ignite ReactJS</td>
-              <td>30 minutos</td>
-              <td>Há 1 hora atrás</td>
-              <td>
-                <Status statusColor="yellow">Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Assistir as aulas do Full Cycle 3</td>
-              <td>30 minutos</td>
-              <td>Há 2 horas atrás</td>
-              <td>
-                <Status statusColor="red">Interrompido</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Fazer exercícios físicos</td>
-              <td>30 minutos</td>
-              <td>Há 2 semanas atrás</td>
-              <td>
-                <Status statusColor="red">Interrompido</Status>
-              </td>
-            </tr>
+            {cycles.map((cycle) => {
+              return (
+                <tr key={cycle.id}>
+                  <td>{cycle.task}</td>
+                  <td>{cycle.minutesAmount} minutos</td>
+                  <td>{cycle.startDate.toISOString()}</td>
+                  <td>
+                    {cycle.finishedDate && (
+                      <Status statusColor="green">Concluído</Status>
+                    )}
+                    {cycle.interruptedDate && (
+                      <Status statusColor="red">Interrompido</Status>
+                    )}
+                    {!cycle.finishedDate && !cycle.interruptedDate && (
+                      <Status statusColor="yellow">Em andamento</Status>
+                    )}
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </HistoryList>
