@@ -33,8 +33,8 @@ export function Countdown() {
 
         if (secondsDifference >= totalSeconds) {
           markCurrentCycleAsFinished()
-          clearInterval(interval)
           setSecondsPassed(totalSeconds)
+          clearInterval(interval)
         } else {
           setSecondsPassed(secondsDifference)
         }
@@ -56,7 +56,7 @@ export function Countdown() {
     if (activeCycle) {
       document.title = `${minutes}:${seconds}`
     }
-  }, [activeCycle, minutes, seconds])
+  }, [minutes, seconds, activeCycle])
 
   return (
     <CountdownContainer>

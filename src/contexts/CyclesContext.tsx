@@ -9,6 +9,7 @@ import {
 import {
   addNewCycleAction,
   interruptCurrentCycleAction,
+  markCurrentCycleAsFinishedAction,
 } from '../reducers/cycles/actions'
 import { Cycle, cyclesReducer } from '../reducers/cycles/reducer'
 
@@ -96,7 +97,7 @@ export function CyclesContextProvider({
   }
 
   function markCurrentCycleAsFinished() {
-    dispatch(markCurrentCycleAsFinished())
+    dispatch(markCurrentCycleAsFinishedAction())
   }
 
   return (
